@@ -1,0 +1,41 @@
+@startuml (Content Manager)
+
+
+package Triggers {
+  actor systemCron  
+  actor webClient
+}
+
+package ContentManagerWebService{
+  usecase InitFetch as  "Auto Retrieve 
+  CappyContent"
+  usecase  getRedditClient as "Initiate reddit connection"
+  usecase  FetchPosts as "Fetch reddit posts"
+  usecase StorePost as "Store post"
+  usecase  GetPostData as "Get post data"
+  usecase  SetPostData as "Set post data"
+  usecase  DispatchEvents as "Dispatch events"
+  usecase  CreateSchedule as "Schedule post"
+
+  systemCron --> InitFetch
+  webClient --> InitFetch
+
+  webClient --> StorePost
+
+  StorePost <|.. GetPostData 
+  StorePost <|.. SetPostData 
+
+  InitFetch --> getRedditClient
+  InitFetch --> FetchPosts
+
+  FetchPosts --> StorePost
+
+  DispatchEvents <- StorePost
+
+  StorePost --> CreateSchedule
+  
+
+
+}
+
+@enduml
