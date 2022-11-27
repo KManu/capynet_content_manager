@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ContentManagerPackage;
+
+service ContentManagerService {
+  rpc HelloThere (TestID) returns (ContentManagerResponse) {}
+}
+
+message TestID {
+  int32 id = 1;
+}
+
+message ContentManagerResponse {
+  int32 id = 1;
+  string name = 2;
+}

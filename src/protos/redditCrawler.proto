@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package RedditCrawlerPackage;
+
+message TestNu{
+    string nunu = 1;
+}
+
+service RedditCrawlerPackage {
+  rpc FetchSubHottest (RedditCrawlerRequest) returns (RedditCrawlerResponse) {}
+}
+
+message RedditCrawlerRequest {
+  optional string subName = 1;
+  optional string after = 2;
+  optional string before = 3;
+  optional string show = 4;
+  optional int32 count = 5;
+  optional string time = 6;
+}
+
+message RedditCrawlerResponse {
+  message ErrorType{
+    string message = 1;
+    optional string errorTrace = 2;
+  }
+  /* message ItemType{
+    int32 id =1;
+    string name = 2;
+  } */
+  int32 status = 1;
+  repeated string data = 2;
+  optional ErrorType error = 3;
+}
+
+/* export interface ListingOptions {
+  limit?: number;
+  after?: string;
+  before?: string;
+  show?: string;
+  count?: number;
+}
+
+export interface SortedListingOptions extends ListingOptions {
+  time?: 'all' | 'hour' | 'day' | 'week' | 'month' | 'year';
+}
+ */
